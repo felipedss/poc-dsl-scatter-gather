@@ -1,0 +1,37 @@
+server:
+  port: 8082
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: scatter-gather
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    exchange: scatter-gather-exchange
+    max-attempts: 1
+    pattern:
+      routing-key: scatter-gather-queue
+      queue: scatter-gather-queue
+    listener:
+      simple:
+        default-requeue-rejected: false
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/ordem-servico
+    username: postgres
+    password: postgres
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
